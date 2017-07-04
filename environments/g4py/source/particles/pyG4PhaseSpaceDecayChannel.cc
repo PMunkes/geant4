@@ -23,41 +23,30 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: pymodG4processes.cc 101514 2016-11-18 15:30:57Z gcosmo $
+// $Id: pyG4PhaseSpaceDecayChannel.cc 66892 2013-01-17 10:57:59Z gunter $
 // ====================================================================
-//   pymodG4processes.cc
+//   pyG4PhaseSpaceDecayChannel.cc
 //
 //                                         2005 Q
 // ====================================================================
 #include <boost/python.hpp>
+#include "G4PhaseSpaceDecayChannel.hh"
 
 using namespace boost::python;
 
 // ====================================================================
 // module definition
 // ====================================================================
-void export_G4ProcessManager();
-void export_G4ProcessTable();
-void export_G4VProcess();
-void export_G4ProcVector();
-void export_G4ProcessType();
-void export_G4EmCalculator();
-void export_G4ProductionCutsTable();
-void export_G4VCrossSectionHandler();
-void export_G4CrossSectionHandler();
-void export_G4GammaConversionToMuons();
-void export_G4AnnihiToMuPair();
-BOOST_PYTHON_MODULE(G4processes)
+void export_G4PhaseSpaceDecayChannel()
 {
-  export_G4ProcessManager();
-  export_G4ProcessTable();
-  export_G4VProcess();
-  export_G4ProcVector();
-  export_G4ProcessType();
-  export_G4EmCalculator();
-  export_G4ProductionCutsTable();
-  export_G4VCrossSectionHandler();
-  export_G4CrossSectionHandler();
-  export_G4GammaConversionToMuons();
-  export_G4AnnihiToMuPair();
+  class_<G4PhaseSpaceDecayChannel, G4PhaseSpaceDecayChannel*, boost::noncopyable>
+    ("G4PhaseSpaceDecayChannel", "phase space decay")
+     // ---
+    // constructors
+    .def(init<const G4String&, G4float, G4int, const G4String&, const G4String&,const G4String&,const G4String&>())
+    ;
+     // reduced functionality...
+     // ...
+
 }
+

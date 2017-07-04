@@ -46,6 +46,7 @@
 #include "globals.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4VDecayChannel.hh"
+#include "G4PhaseSpaceDecayChannel.hh"
 
 class G4DecayTable 
 {
@@ -75,6 +76,7 @@ class G4DecayTable
 
  public: // With Description
     void  Insert( G4VDecayChannel* aChannel);
+    void  Insert( G4PhaseSpaceDecayChannel* aChannel){Insert(dynamic_cast<G4VDecayChannel*>(aChannel));};
     // Insert a decay channel at proper position 
     // (i.e. sorted by using branching ratio ) 
 

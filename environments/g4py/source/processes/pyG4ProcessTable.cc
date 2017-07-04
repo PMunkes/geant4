@@ -32,6 +32,8 @@
 #include <boost/python.hpp>
 class G4UImessenger;
 #include "G4ProcessTable.hh"
+#include "G4AnnihiToMuPair.hh"
+#include "G4GammaConversionToMuons.hh"
 
 using namespace boost::python;
 
@@ -51,6 +53,15 @@ G4VProcess*(G4ProcessTable::*f2_FindProcess)
 G4VProcess*(G4ProcessTable::*f3_FindProcess)
   (const G4String&, const G4ProcessManager*) const
   = &G4ProcessTable::FindProcess;
+
+G4AnnihiToMuPair* f4_FindProcess(G4ProcessTable* procTable, const G4String proc, const G4String part)
+{
+  return dynamic_cast<G4AnnihiToMuPair*>(procTable-> FindProcess(proc,part));
+}
+G4GammaConversionToMuons* f5_FindProcess(G4ProcessTable* procTable, const G4String proc, const G4String part)
+{
+  return dynamic_cast<G4GammaConversionToMuons*>(procTable-> FindProcess(proc,part));
+}
 
 // FindProcesses
 // raw vector pointer -> Python list conversion
@@ -159,7 +170,9 @@ void export_G4ProcessTable()
          return_value_policy<reference_existing_object>())
     .def("FindProcess",          f3_FindProcess,
          return_value_policy<reference_existing_object>())
-    .def("FindProcess",          f3_FindProcess,
+    .def("FindProcessA",          f4_FindProcess,
+         return_value_policy<reference_existing_object>())
+    .def("FindProcess",          f5_FindProcess,
          return_value_policy<reference_existing_object>())
     // ---
     .def("FindProcesses",        f1_FindProcesses)

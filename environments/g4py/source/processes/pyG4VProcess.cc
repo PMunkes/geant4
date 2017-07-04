@@ -31,7 +31,8 @@
 // ====================================================================
 #include <boost/python.hpp>
 #include "G4VProcess.hh"
-
+#include "G4GammaConversionToMuons.hh"
+#include "G4AnnihiToMuPair.hh"
 using namespace boost::python;
 
 // ====================================================================
@@ -70,5 +71,27 @@ void export_G4VProcess()
     .def("DumpInfo",             &G4VProcess::DumpInfo)
     .def("SetVerboseLevel",      &G4VProcess::SetVerboseLevel)
     .def("GetVerboseLevel",      &G4VProcess::GetVerboseLevel)
+    ;
+}
+void export_G4GammaConversionToMuons()
+{
+  class_<G4GammaConversionToMuons, G4GammaConversionToMuons*, boost::noncopyable>
+    ("G4GammaConversionToMuons", "special process", no_init)
+    // ---
+    // Note that only limited methods are exposed.
+    .def("SetCrossSecFactor",         &G4GammaConversionToMuons::SetCrossSecFactor)
+    .def("GetProcessName",       &G4VProcess::GetProcessName,
+         return_value_policy<return_by_value>())
+    ;
+}
+void export_G4AnnihiToMuPair()
+{
+  class_<G4AnnihiToMuPair, G4AnnihiToMuPair*, boost::noncopyable>
+    ("G4AnnihiToMuPair", "special process", no_init)
+    // ---
+    // Note that only limited methods are exposed.
+    .def("SetCrossSecFactor",         &G4AnnihiToMuPair::SetCrossSecFactor)
+    .def("GetProcessName",       &G4VProcess::GetProcessName,
+         return_value_policy<return_by_value>())
     ;
 }

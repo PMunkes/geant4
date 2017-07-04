@@ -43,7 +43,7 @@ void export_G4DecayTable();
 void export_G4PrimaryParticle();
 void export_G4PrimaryVertex();
 void export_PyG4ParticleList();
-
+void export_G4PhaseSpaceDecayChannel();
 
 BOOST_PYTHON_MODULE(G4particles)
 {
@@ -54,5 +54,6 @@ BOOST_PYTHON_MODULE(G4particles)
   export_G4PrimaryParticle();
   export_G4PrimaryVertex();
   export_PyG4ParticleList();
+  export_G4PhaseSpaceDecayChannel();
 }
 

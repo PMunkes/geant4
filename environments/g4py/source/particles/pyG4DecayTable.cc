@@ -31,9 +31,22 @@
 // ====================================================================
 #include <boost/python.hpp>
 #include "G4DecayTable.hh"
+#include "G4PhaseSpaceDecayChannel.hh"
 
 using namespace boost::python;
 
+// ====================================================================
+// thin wrappers
+// ====================================================================
+namespace pyG4DecayTable {
+
+void (G4DecayTable::*f2_Insert)(G4PhaseSpaceDecayChannel*)
+  = &G4DecayTable::Insert;
+void (G4DecayTable::*f1_Insert)(G4VDecayChannel*)
+  = &G4DecayTable::Insert;
+
+}
+using namespace pyG4DecayTable; 
 // ====================================================================
 // module definition
 // ====================================================================
@@ -43,6 +56,9 @@ void export_G4DecayTable()
     ("G4DecayTable", "decay table")
      // ---
      .def("DumpInfo",   &G4DecayTable::DumpInfo)
+     .def("Insert",     f1_Insert)
+     .def("Insert",     f2_Insert)
+     .def("Entries",    &G4DecayTable::entries)
      ;
 
      // reduced functionality...
