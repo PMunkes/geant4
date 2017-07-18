@@ -85,5 +85,6 @@ void export_G4Track()
     	 return_value_policy<reference_existing_object>())
     .def("GetWeight",              &G4Track::GetWeight)
     .def("SetWeight",              &G4Track::SetWeight)
+    .def("SetTrackStatus",         &G4Track::SetTrackStatus)
     ;
 }

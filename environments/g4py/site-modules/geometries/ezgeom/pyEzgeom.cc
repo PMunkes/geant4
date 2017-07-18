@@ -118,6 +118,9 @@ BOOST_PYTHON_MODULE(ezgeom) {
   class_<G4EzVolume>("G4EzVolume", "an easy way of geometry configuration")
     .def(init<const G4String&>())
     // ---
+    .def("Subtract",      &G4EzVolume::Subtract)
+    .def("Add",      &G4EzVolume::Add)
+    .def("Intersect",      &G4EzVolume::Intersect)
     .def("CreateBoxVolume",     &G4EzVolume::CreateBoxVolume)
     .def("CreateTubeVolume",    &G4EzVolume::CreateTubeVolume,
 	                        f_CreateTubeVolume())
@@ -126,6 +129,9 @@ BOOST_PYTHON_MODULE(ezgeom) {
     .def("CreateShpereVolume",  &G4EzVolume::CreateSphereVolume,
 	                        f_CreateSphereVolume())
     .def("CreateOrbVolume",     &G4EzVolume::CreateOrbVolume)
+    .def("CreateTrapezoidVolume",    &G4EzVolume::CreateTrapezoidVolume)
+    .def("CreateTrapVolume",    &G4EzVolume::CreateTrapVolume)
+    .def("CreateTrdVolume",     &G4EzVolume::CreateTrdVolume)
     // ---
     .def("SetSold",             &G4EzVolume::SetSolid)
     .def("GetSold",             &G4EzVolume::GetSolid,

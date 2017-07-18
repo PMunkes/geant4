@@ -31,11 +31,16 @@
 // ====================================================================
 #include "G4Material.hh"
 #include "G4Box.hh"
+#include "G4Trd.hh"
+#include "G4Trap.hh"
 #include "G4Tubs.hh"
 #include "G4Cons.hh"
 #include "G4Sphere.hh"
 #include "G4Orb.hh"
 #include "G4PVPlacement.hh"
+#include "G4SubtractionSolid.hh"
+#include "G4IntersectionSolid.hh"
+#include "G4UnionSolid.hh"
 #include "G4PVReplica.hh"
 #include "G4PVParameterised.hh"
 #include "G4VisAttributes.hh"
@@ -76,6 +81,59 @@ G4EzVolume::~G4EzVolume()
 {
 }
 
+///////////////////////////////////////////////////////////////////////
+void G4EzVolume::Subtract(G4Material* amaterial,G4EzVolume* A, G4EzVolume* B)
+///////////////////////////////////////////////////////////////////////
+{
+  if(lv !=0 ) {
+    G4cout << "%%% Warning (G4EzVolume): volume is already created."
+	   << G4endl;
+    return;
+  }
+    const G4VSolid* solidA = A->GetSolid();
+    const G4VSolid* solidB = B->GetSolid();
+    solid = new G4SubtractionSolid(name, const_cast<G4VSolid*>(solidA), const_cast<G4VSolid*>(solidB));
+    lv    = new G4LogicalVolume (solid,amaterial,name);
+  // vis. attributes
+    va= new G4VisAttributes();
+    lv-> SetVisAttributes(va);
+}
+
+///////////////////////////////////////////////////////////////////////
+void G4EzVolume::Add(G4Material* amaterial,G4EzVolume* A, G4EzVolume* B)
+///////////////////////////////////////////////////////////////////////
+{
+  if(lv !=0 ) {
+    G4cout << "%%% Warning (G4EzVolume): volume is already created."
+	   << G4endl;
+    return;
+  }
+   const G4VSolid* solidA = A->GetSolid();
+   const G4VSolid* solidB = B->GetSolid();
+   solid = new G4UnionSolid(name, const_cast<G4VSolid*>(solidA), const_cast<G4VSolid*>(solidB));
+   lv    = new G4LogicalVolume (solid,amaterial,name);
+  // vis. attributes
+    va= new G4VisAttributes();
+    lv-> SetVisAttributes(va);
+}
+
+///////////////////////////////////////////////////////////////////////
+void G4EzVolume::Intersect(G4Material* amaterial,G4EzVolume* A, G4EzVolume* B)
+///////////////////////////////////////////////////////////////////////
+{
+  if(lv !=0 ) {
+    G4cout << "%%% Warning (G4EzVolume): volume is already created."
+	   << G4endl;
+    return;
+  }
+    const G4VSolid* solidA = A->GetSolid();
+    const G4VSolid* solidB = B->GetSolid();
+    solid = new G4IntersectionSolid(name, const_cast<G4VSolid*>(solidA), const_cast<G4VSolid*>(solidB));
+    lv    = new G4LogicalVolume (solid,amaterial,name);
+  // vis. attributes
+    va= new G4VisAttributes();
+    lv-> SetVisAttributes(va);
+}
 
 ///////////////////////////////////////////////////////////////////////
 void G4EzVolume::CreateBoxVolume(G4Material* amaterial, 
@@ -96,6 +154,66 @@ void G4EzVolume::CreateBoxVolume(G4Material* amaterial,
   lv-> SetVisAttributes(va);
 }
 
+///////////////////////////////////////////////////////////////////////
+void G4EzVolume::CreateTrapezoidVolume(G4Material* amaterial, 
+	     G4double  pDz,   G4double  pTheta,
+             G4double  pPhi,  G4double  pDy1,
+             G4double  pDx1,  G4double  pDx2,
+             G4double  pAlp1, G4double  pDy2,
+             G4double  pDx3,  G4double  pDx4,
+             G4double  pAlp2)
+///////////////////////////////////////////////////////////////////////
+{
+  if(lv !=0 ) {
+    G4cout << "%%% Warning (G4EzVolume): volume is already created."
+	   << G4endl;
+    return;
+  }
+
+  solid= new G4Trap(name,pDz,pTheta,pPhi,pDy1,pDx1,pDx2,pAlp1,pDy2,pDx3,pDx4,pAlp2);
+  lv= new G4LogicalVolume(solid, amaterial, name);
+
+  // vis. attributes
+  va= new G4VisAttributes();
+  lv-> SetVisAttributes(va);
+}
+
+///////////////////////////////////////////////////////////////////////
+void G4EzVolume::CreateTrdVolume(G4Material* amaterial, 
+		 G4double dx1, G4double dx2, G4double dy1, G4double dy2, G4double dz)
+///////////////////////////////////////////////////////////////////////
+{
+  if(lv !=0 ) {
+    G4cout << "%%% Warning (G4EzVolume): volume is already created."
+	   << G4endl;
+    return;
+  }
+
+  solid= new G4Trd(name, dx1, dx2, dy1, dy2, dz);
+  lv= new G4LogicalVolume(solid, amaterial, name);
+
+  // vis. attributes
+  va= new G4VisAttributes();
+  lv-> SetVisAttributes(va);
+}
+///////////////////////////////////////////////////////////////////////
+void G4EzVolume::CreateTrapVolume(G4Material* amaterial, 
+				 G4double pZ, G4double pY, G4double pX, G4double pLTX)
+///////////////////////////////////////////////////////////////////////
+{
+  if(lv !=0 ) {
+    G4cout << "%%% Warning (G4EzVolume): volume is already created."
+	   << G4endl;
+    return;
+  }
+
+  solid= new G4Trap(name, pZ, pY, pX, pLTX);
+  lv= new G4LogicalVolume(solid, amaterial, name);
+
+  // vis. attributes
+  va= new G4VisAttributes();
+  lv-> SetVisAttributes(va);
+}
 
 ////////////////////////////////////////////////////////////////////////////
 void G4EzVolume::CreateTubeVolume(G4Material* amaterial,

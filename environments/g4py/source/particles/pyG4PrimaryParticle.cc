@@ -77,5 +77,11 @@ void export_G4PrimaryParticle()
     .def("GetWeight",   &G4PrimaryParticle::GetWeight)
     .def("SetWeight",   &G4PrimaryParticle::SetWeight)
     .def("GetProperTime", &G4PrimaryParticle::GetProperTime)
+    .def("Set4Momentum",   &G4PrimaryParticle::Set4Momentum)
+    .def("SetMass",   &G4PrimaryParticle::SetMass)
+    .def("SetMomentumDirection",   &G4PrimaryParticle::SetMomentumDirection)
+    .def("SetCharge",   &G4PrimaryParticle::SetCharge)
+    .def("GetParticleDefinition",   &G4PrimaryParticle::GetParticleDefinition,
+          return_internal_reference<>())     ;
     ;
 }

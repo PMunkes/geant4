@@ -73,6 +73,7 @@ void export_G4PrimaryVertex()
     .def("SetPrimary",  &G4PrimaryVertex::SetPrimary)
     .def("GetWeight",   &G4PrimaryVertex::GetWeight)
     .def("SetWeight",   &G4PrimaryVertex::SetWeight)
+    .def("SetPrimary",   &G4PrimaryVertex::SetPrimary)
     .def("Print", &G4PrimaryVertex::Print)
     ;
 }

@@ -81,6 +81,7 @@ void export_G4GDMLParser()
     .def("GetWorldVolume",   &G4GDMLParser::GetWorldVolume,
          f_GetWorldVolume()
          [return_value_policy<reference_existing_object>()])
+    .def("GetVolumeAuxiliaryInformation",   &G4GDMLParser::GetVolumeAuxiliaryInformation, return_value_policy<return_by_value>())
     ;
 }
 

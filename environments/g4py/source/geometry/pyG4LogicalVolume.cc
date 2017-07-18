@@ -149,5 +149,6 @@ void export_G4LogicalVolume()
     // ---
     .def("SetBiasWeight",  &G4LogicalVolume::SetBiasWeight)
     .def("GetBiasWeight",  &G4LogicalVolume::GetBiasWeight)
+    .def("SetSensitiveDetector", &G4LogicalVolume::SetSensitiveDetector)
     ;
 }

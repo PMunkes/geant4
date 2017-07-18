@@ -65,8 +65,25 @@ public:
   ~G4EzVolume();
 
   // createing volume
+  void Subtract(G4Material* amaterial,G4EzVolume* A, G4EzVolume* B);
+  void Add(G4Material* amaterial,G4EzVolume* A, G4EzVolume* B);
+  void Intersect(G4Material* amaterial,G4EzVolume* A, G4EzVolume* B);
   void CreateBoxVolume(G4Material* amaterial,
 		       G4double dx, G4double dy, G4double dz);
+
+  void CreateTrapezoidVolume(G4Material* amaterial, 
+            G4double  pDz,   G4double  pTheta,
+             G4double  pPhi,  G4double  pDy1,
+             G4double  pDx1,  G4double  pDx2,
+             G4double  pAlp1, G4double  pDy2,
+             G4double  pDx3,  G4double  pDx4,
+             G4double  pAlp2);
+
+  void CreateTrapVolume(G4Material* amaterial, 
+			G4double pZ, G4double pY, G4double pX, G4double pLTX);
+
+  void CreateTrdVolume(G4Material* amaterial, 
+		 G4double dx1, G4double dx2, G4double dy1, G4double dy2, G4double dz);  
 
   void CreateTubeVolume(G4Material* amaterial,
 			G4double rmin, G4double rmax, 

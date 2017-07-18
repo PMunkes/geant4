@@ -32,7 +32,7 @@
 #include <boost/python.hpp>
 #include "G4Version.hh"
 #include "G4VSolid.hh"
-
+#include "G4String.hh"
 using namespace boost::python;
 
 // ====================================================================

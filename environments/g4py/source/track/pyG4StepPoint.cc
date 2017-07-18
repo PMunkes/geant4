@@ -32,7 +32,7 @@
 #include <boost/python.hpp>
 #include "G4VProcess.hh"
 #include "G4StepPoint.hh"
-
+#include "G4VProcess.hh"
 using namespace boost::python;
 
 // ====================================================================
@@ -68,5 +68,10 @@ void export_G4StepPoint()
     .def("GetMass",               &G4StepPoint::GetMass)
     .def("GetCharge",             &G4StepPoint::GetCharge)
     .def("GetWeight",             &G4StepPoint::GetWeight)
+    .def("GetTouchableHandle",    &G4StepPoint::GetTouchable,  return_value_policy<reference_existing_object>())
+    .def("GetMaterial",           &G4StepPoint::GetMaterial,
+           return_value_policy<return_by_value>())
+                 .def("GetProcessDefinedStep", &G4StepPoint::GetProcessDefinedStep,
+             return_internal_reference<>())
     ;
 }

@@ -52,6 +52,7 @@
 #include "QGSP_INCLXX_HP.hh"
 #include "QGS_BIC.hh"
 #include "Shielding.hh"
+#include "G4PhysListFactory.hh"
 
 
 // macro for adding physics lists
@@ -80,8 +81,13 @@ void ListPhysicsList() {
   }
 }
 
+G4VModularPhysicsList* GetReferencePhysList(const G4String& name) {
+   G4PhysListFactory factory;
+   G4VModularPhysicsList* test = factory.GetReferencePhysList(name);
+   return test;
 }
 
+}
 using namespace pyPhysicsLists;
 
 // ====================================================================
@@ -89,8 +95,10 @@ using namespace pyPhysicsLists;
 // ====================================================================
 void export_PhysicsLists()
 {
+  def("GetReferencePhysList", GetReferencePhysList,
+         return_internal_reference<>());
   def("ListPhysicsList",   ListPhysicsList);
-
+  def("AddPhysicsList",    AddPhysicsList);   
   ADD_PHYSICS_LIST(FTFP_BERT);
   ADD_PHYSICS_LIST(FTFP_BERT_ATL);
   ADD_PHYSICS_LIST(FTFP_BERT_HP);
